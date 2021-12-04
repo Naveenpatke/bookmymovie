@@ -6,13 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class MovieService {
 
     @Autowired
     MovieRepository movieRepository;
 
-    public Movie getMovieDetails(String movieName){
+    public List<Movie> getMovieDetails(String movieName){
         return movieRepository.findByMovieName(movieName);
     }
 
@@ -21,10 +24,15 @@ public class MovieService {
     }
 
     public Movie updateMovieDetails(Movie movie){
-        return movieRepository.save(movie);
+        Optional<Movie> movieDetailsFromDB = movieRepository.findById(movie.getMovieId());
+        if(movieDetailsFromDB.isPresent()){
+            return movieRepository.save(movie);
+        } else {
+           return new Movie();
+        }
     }
 
-    public String deleteMovie(@RequestParam Long movieId){
+    public String deleteMovie(Long movieId){
         movieRepository.deleteById(movieId);
         return "Deleted Successfully";
     }

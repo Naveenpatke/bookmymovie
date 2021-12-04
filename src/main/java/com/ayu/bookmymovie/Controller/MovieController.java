@@ -5,6 +5,8 @@ import com.ayu.bookmymovie.Service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
@@ -13,7 +15,7 @@ public class MovieController {
     MovieService movieService;
 
     @GetMapping("/get-movie-details")
-    public Movie getMovieDetails(@RequestParam String movieName){
+    public List<Movie> getMovieDetails(@RequestParam String movieName){
         return movieService.getMovieDetails(movieName);
     }
 

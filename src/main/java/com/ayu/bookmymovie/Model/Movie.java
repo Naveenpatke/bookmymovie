@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,4 +26,7 @@ public class Movie {
     private String movieDuration;
 
     private String movieDetails;
+
+    @OneToMany(mappedBy = "movie")
+    private List<Screen> screen;
 }
