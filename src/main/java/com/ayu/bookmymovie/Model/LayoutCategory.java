@@ -1,12 +1,9 @@
 package com.ayu.bookmymovie.Model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.*;
 
 @Getter
 @Setter
@@ -16,7 +13,7 @@ import java.util.*;
 @Table(name = "layout_category")
 public class LayoutCategory {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -25,9 +22,8 @@ public class LayoutCategory {
     private Double price;
 
     @ManyToOne
-    @JoinColumn(name = "layout_layout_id")
-    private Layout layout;
+    @JoinColumn(name = "screen_id")
+    @JsonIgnore
+    private Screen screen;
 
-//    @ElementCollection
-//    private List<Integer> seatsBooked;
 }

@@ -24,6 +24,12 @@ public class MovieController {
         return movieService.addMovie(movie);
     }
 
+
+    @PostMapping("/add-movie-to-screen")
+    public String addLayoutCategoryToScreen(@RequestParam Long screenId, @RequestBody Movie movie){
+        return movieService.addMovieToScreen(screenId, movie);
+    }
+
     @PutMapping("/update-movie-details")
     public Movie updateMovieDetails(@RequestBody Movie movie){
         return movieService.updateMovieDetails(movie);

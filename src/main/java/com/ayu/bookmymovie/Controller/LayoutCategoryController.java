@@ -24,6 +24,11 @@ public class LayoutCategoryController {
         return layoutCategoryService.addLayoutCategory(layoutCategory);
     }
 
+    @PostMapping("/add-layout-category-to-screen")
+    public String addLayoutCategoryToScreen(@RequestParam Long screenId, @RequestBody LayoutCategory layoutCategory){
+        return layoutCategoryService.addLayoutCategoriesToScreen(screenId, layoutCategory);
+    }
+
     @PutMapping("/update-layout-category-details")
     public LayoutCategory updateLayoutCategoryDetails(@RequestBody LayoutCategory layoutCategory){
         return layoutCategoryService.updateLayoutCategoryDetails(layoutCategory);

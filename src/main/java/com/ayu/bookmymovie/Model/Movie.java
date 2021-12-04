@@ -1,9 +1,7 @@
 package com.ayu.bookmymovie.Model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,7 +15,7 @@ import java.util.List;
 
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "movie_id", nullable = false)
     private Long movieId;
 
@@ -28,5 +26,6 @@ public class Movie {
     private String movieDetails;
 
     @OneToMany(mappedBy = "movie")
+    @JsonIgnore
     private List<Screen> screen;
 }
