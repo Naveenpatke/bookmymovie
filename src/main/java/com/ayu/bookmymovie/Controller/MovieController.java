@@ -1,5 +1,7 @@
 package com.ayu.bookmymovie.Controller;
 
+import com.ayu.bookmymovie.DTO.CinemaDTO;
+import com.ayu.bookmymovie.Model.Cinema;
 import com.ayu.bookmymovie.Model.Movie;
 import com.ayu.bookmymovie.Service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,11 @@ public class MovieController {
         return movieService.getMovieDetails(movieName);
     }
 
+    @GetMapping("/get-all-cinema-details-by-movie")
+    public List<CinemaDTO> getAllCinemaDetailsByMovie(@RequestParam String movieName){
+        return movieService.getAllCinemaDetailsForGivenMovie(movieName);
+    }
+
     @PostMapping("/add-movie")
     public Movie addMovie(@RequestBody Movie movie){
         return movieService.addMovie(movie);
@@ -26,8 +33,8 @@ public class MovieController {
 
 
     @PostMapping("/add-movie-to-screen")
-    public String addLayoutCategoryToScreen(@RequestParam Long screenId, @RequestBody Movie movie){
-        return movieService.addMovieToScreen(screenId, movie);
+    public String addLayoutCategoryToScreen(@RequestParam Long screenId, @RequestParam Long movieID){
+        return movieService.addMovieToScreen(screenId, movieID);
     }
 
     @PutMapping("/update-movie-details")

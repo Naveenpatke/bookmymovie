@@ -1,5 +1,7 @@
 package com.ayu.bookmymovie.Service;
 
+import com.ayu.bookmymovie.DTO.CinemaDTO;
+import com.ayu.bookmymovie.Model.Cinema;
 import com.ayu.bookmymovie.Model.Movie;
 import com.ayu.bookmymovie.Model.Screen;
 import com.ayu.bookmymovie.Repository.MovieRepository;
@@ -23,17 +25,29 @@ public class MovieService {
         return movieRepository.findByMovieName(movieName);
     }
 
+    public List<CinemaDTO> getAllCinemaDetailsForGivenMovie(String movieName){
+        List<Movie> movie = getMovieDetails(movieName);
+        if (!movie.isEmpty()){
+            return movieRepository.findCinemasByMovieID(movie.get(0).getMovieId());
+        }
+        return null;
+    }
+
     public Movie addMovie(Movie movie){
         return movieRepository.save(movie);
     }
 
-    public String addMovieToScreen(Long screenId, Movie movie){
+    public String addMovieToScreen(Long screenId, Long movieID){
         Optional<Screen> screen = screenRepository.findById(screenId);
         if (screen.isPresent()){
-            Movie movieFromDB = movieRepository.save(movie);
-            screen.get().setMovie(movieFromDB);
-            screenRepository.save(screen.get());
-            return "Movie added successfully";
+            Optional<Movie> movieFromDB = movieRepository.findById(movieID);
+            if (movieFromDB.isPresent()){
+                screen.get().setMovie(movieFromDB.get());
+                screenRepository.save(screen.get());
+                return "Movie added successfully";
+            }else {
+                return "No Movie found for given ID";
+            }
         }else {
             return "No Screen found for given ID";
         }
