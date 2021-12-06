@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.ayu.bookmymovie.Constants.BookMyMovieConstants.*;
+
 @Service
 public class LayoutCategoryService {
 
@@ -37,16 +39,20 @@ public class LayoutCategoryService {
             layoutCategories.add(layoutCategoryFromDb);
             screen.get().setLayoutCategories(layoutCategories);
             screenRepository.save(screen.get());
-            return "Layout category added successfully";
+            return LAYOUT_CATEGORY_ADDED_SUCCESSFULLY;
         }else {
-            return "No Screen found for given ID";
+            return NO_SCREEN_FOUND_FOR_GIVEN_ID;
         }
     }
 
     public LayoutCategory updateLayoutCategoryDetails(LayoutCategory layoutCategory){
         Optional<LayoutCategory> layoutCategoryDetailsFromDB = layoutCategoryRepository.findById(layoutCategory.getId());
         if(layoutCategoryDetailsFromDB.isPresent()){
-            return layoutCategoryRepository.save(layoutCategory);
+            layoutCategoryDetailsFromDB.get().setCategoryName(layoutCategory.getCategoryName());
+            layoutCategoryDetailsFromDB.get().setPrice(layoutCategory.getPrice());
+            layoutCategoryDetailsFromDB.get().setMaxSeats(layoutCategory.getMaxSeats());
+
+            return layoutCategoryRepository.save(layoutCategoryDetailsFromDB.get());
         } else {
             return new LayoutCategory();
         }
@@ -55,9 +61,9 @@ public class LayoutCategoryService {
     public String deleteLayoutCategory(Long layoutCategoryId){
         try{
             layoutCategoryRepository.deleteById(layoutCategoryId);
-            return "Deleted Successfully";
+            return LAYOUT_CATEGORY_DELETED_SUCCESSFULLY;
         }catch (EmptyResultDataAccessException e){
-            return "No records found";
+            return NO_RECORD_FOUND;
         }
     }
 }

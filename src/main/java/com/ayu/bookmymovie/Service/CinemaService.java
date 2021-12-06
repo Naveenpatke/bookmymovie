@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.ayu.bookmymovie.Constants.BookMyMovieConstants.CINEMA_DELETED_SUCCESSFULLY;
+
 @Service
 public class CinemaService {
 
@@ -40,6 +42,6 @@ public class CinemaService {
 
     public String deleteCinema(Long cinemaId){
         cinemaRepository.deleteById(cinemaId);
-        return "Deleted Successfully";
+        return CINEMA_DELETED_SUCCESSFULLY;
     }
 }

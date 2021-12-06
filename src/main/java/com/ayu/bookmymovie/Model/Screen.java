@@ -1,6 +1,7 @@
 package com.ayu.bookmymovie.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,4 +34,8 @@ public class Screen {
 
     @OneToMany(mappedBy = "screen")
     private List<LayoutCategory> layoutCategories;
+
+    @OneToMany(mappedBy = "screen")
+    @JsonIgnore
+    private List<ReservedSeats> reservedSeats;
 }

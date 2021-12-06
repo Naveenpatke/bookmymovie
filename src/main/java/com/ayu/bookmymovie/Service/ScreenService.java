@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.ayu.bookmymovie.Constants.BookMyMovieConstants.*;
+
 @Service
 public class ScreenService {
 
@@ -38,16 +40,18 @@ public class ScreenService {
             screens.add(screenDetailsFromDB);
             cinema.get().setScreens(screens);
             cinemaRepository.save(cinema.get());
-            return "Screen added to cinema successfully";
+            return SCREEN_ADDED_TO_CINEMA_SUCCESSFULLY;
         }else {
-            return "No Cinema found for given ID";
+            return NO_CINEMA_FOUND_FOR_GIVEN_ID;
         }
     }
 
     public Screen updateScreenDetails(Screen screen){
         Optional<Screen> screenDetailsFromDB = screenRepository.findById(screen.getId());
         if(screenDetailsFromDB.isPresent()){
-            return screenRepository.save(screen);
+            screenDetailsFromDB.get().setScreenName(screen.getScreenName());
+            screenDetailsFromDB.get().setTimings(screen.getTimings());
+            return screenRepository.save(screenDetailsFromDB.get());
         } else {
             return new Screen();
         }
@@ -55,6 +59,6 @@ public class ScreenService {
 
     public String deleteScreen(Long screenId){
         screenRepository.deleteById(screenId);
-        return "Deleted Successfully";
+        return SCREEN_DELETED_SUCCESSFULLY;
     }
 }
