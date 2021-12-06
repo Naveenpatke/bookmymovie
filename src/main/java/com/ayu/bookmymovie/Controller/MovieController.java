@@ -1,7 +1,6 @@
 package com.ayu.bookmymovie.Controller;
 
 import com.ayu.bookmymovie.DTO.CinemaDTO;
-import com.ayu.bookmymovie.Model.Cinema;
 import com.ayu.bookmymovie.Model.Movie;
 import com.ayu.bookmymovie.Service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;

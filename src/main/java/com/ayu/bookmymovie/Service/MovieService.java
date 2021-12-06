@@ -1,7 +1,6 @@
 package com.ayu.bookmymovie.Service;
 
 import com.ayu.bookmymovie.DTO.CinemaDTO;
-import com.ayu.bookmymovie.Model.Cinema;
 import com.ayu.bookmymovie.Model.Movie;
 import com.ayu.bookmymovie.Model.Screen;
 import com.ayu.bookmymovie.Repository.MovieRepository;

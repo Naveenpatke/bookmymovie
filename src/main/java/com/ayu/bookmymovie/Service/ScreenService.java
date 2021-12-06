@@ -1,10 +1,8 @@
 package com.ayu.bookmymovie.Service;
 
 import com.ayu.bookmymovie.Model.Cinema;
-import com.ayu.bookmymovie.Model.LayoutCategory;
 import com.ayu.bookmymovie.Model.Screen;
 import com.ayu.bookmymovie.Repository.CinemaRepository;
-import com.ayu.bookmymovie.Repository.LayoutCategoryRepository;
 import com.ayu.bookmymovie.Repository.ScreenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
