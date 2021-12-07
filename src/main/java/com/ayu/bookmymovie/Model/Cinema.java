@@ -17,7 +17,7 @@ public class Cinema {
     @Column(name = "cinema_id", nullable = false)
     private Long cinema_id;
 
-    private String cinema_name;
+    private String cinemaName;
 
     private String address;
 

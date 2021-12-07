@@ -2,7 +2,6 @@ package com.ayu.bookmymovie.Service;
 
 import com.ayu.bookmymovie.Model.Cinema;
 import com.ayu.bookmymovie.Repository.CinemaRepository;
-import com.ayu.bookmymovie.Repository.ScreenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,10 @@ public class CinemaService {
     public Cinema updateCinemaDetails(Cinema cinema){
         Optional<Cinema> cinemaDetailsFromDB = cinemaRepository.findById(cinema.getCinema_id());
         if(cinemaDetailsFromDB.isPresent()){
-            return cinemaRepository.save(cinema);
+            cinemaDetailsFromDB.get().setCinemaName(cinema.getCinemaName());
+            cinemaDetailsFromDB.get().setAddress(cinema.getAddress());
+            cinemaDetailsFromDB.get().setRating(cinema.getRating());
+            return cinemaRepository.save(cinemaDetailsFromDB.get());
         } else {
             return new Cinema();
         }

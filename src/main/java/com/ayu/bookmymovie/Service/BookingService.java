@@ -36,7 +36,7 @@ public class BookingService {
             });
             reservedSeatsRepository
                     .reserveSeatForGivenScreenIdAndLayoutCategoryIdAndSeatNumber(UUID.randomUUID().toString(), PENDING, selectedSeatNumber, layoutCategoryId, screenId);
-            TimeUnit.SECONDS.sleep(30);
+            TimeUnit.SECONDS.sleep(20);
             reservedSeatsRepository
                     .updateBookingStatus( BOOKED, selectedSeatNumber, layoutCategoryId, screenId, CANCELLED);
             return TICKET_BOOKED_SUCCESSFULLY;
