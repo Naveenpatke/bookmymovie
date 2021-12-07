@@ -1,5 +1,6 @@
 package com.ayu.bookmymovie.Service;
 
+import com.ayu.bookmymovie.DAO.SeatBooking;
 import com.ayu.bookmymovie.Model.LayoutCategory;
 import com.ayu.bookmymovie.Model.ReservedSeats;
 import com.ayu.bookmymovie.Repository.LayoutCategoryRepository;
@@ -7,6 +8,7 @@ import com.ayu.bookmymovie.Repository.ReservedSeatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -22,11 +24,11 @@ public class BookingService {
     @Autowired
     LayoutCategoryRepository layoutCategoryRepository;
 
-    public String bookMovieTicket(Long screenId, Long layoutCategoryId, Integer selectedSeatNumber ) throws InterruptedException {
+    public String bookMovieTicket(Long screenId, Long layoutCategoryId, Integer selectedSeatNumber) throws InterruptedException {
         Optional<ReservedSeats> reservedSeatsDetailsFromDB =
                 reservedSeatsRepository.findBookingDetailsByScreenIdAndLayoutCategoryAndReservedSeatNumber(screenId, layoutCategoryId, selectedSeatNumber, CANCELLED);
 
-        if (reservedSeatsDetailsFromDB.isPresent()){
+        if (reservedSeatsDetailsFromDB.isPresent()) {
             return SEAT_ALREADY_BOOKED;
         } else {
             Optional<LayoutCategory> layoutCategory = layoutCategoryRepository.findById(layoutCategoryId);
@@ -38,12 +40,12 @@ public class BookingService {
                     .reserveSeatForGivenScreenIdAndLayoutCategoryIdAndSeatNumber(UUID.randomUUID().toString(), PENDING, selectedSeatNumber, layoutCategoryId, screenId);
             TimeUnit.SECONDS.sleep(20);
             reservedSeatsRepository
-                    .updateBookingStatus( BOOKED, selectedSeatNumber, layoutCategoryId, screenId, CANCELLED);
+                    .updateBookingStatus(BOOKED, selectedSeatNumber, layoutCategoryId, screenId, CANCELLED);
             return TICKET_BOOKED_SUCCESSFULLY;
         }
     }
 
-    public String cancelMovieTicket(String transactionId ) {
+    public String cancelMovieTicket(String transactionId) {
         Optional<ReservedSeats> reservedSeatsDetailsFromDB =
                 reservedSeatsRepository.findByTransactionId(transactionId);
 
@@ -57,10 +59,30 @@ public class BookingService {
                 layoutCategoryRepository.save(layoutCategoryDetails);
             });
             reservedSeatsRepository
-                    .updateBookingStatus( CANCELLED, seatNumberToBeCancelled, layoutCategoryId, screenId, CANCELLED);
+                    .updateBookingStatus(CANCELLED, seatNumberToBeCancelled, layoutCategoryId, screenId, CANCELLED);
             return TICKET_CANCELLED_SUCCESSFULLY;
         } else {
             return NO_BOOKING_FOUND_FOR_THE_GIVEN_DETAILS;
         }
+    }
+
+    public String bookMultipleMovieTicket(Long screenId, List<SeatBooking> seatBookingList) throws InterruptedException {
+
+        for (SeatBooking seatBookingObject : seatBookingList) {
+            reservedSeatsRepository
+                    .reserveSeatForGivenScreenIdAndLayoutCategoryIdAndSeatNumber(UUID.randomUUID().toString(), PENDING, seatBookingObject.getSelectedSeatNumber(), seatBookingObject.getLayoutCategoryId(), screenId);
+        }
+        TimeUnit.SECONDS.sleep(20);
+        for (SeatBooking seatBookingObject : seatBookingList) {
+            Optional<LayoutCategory> layoutCategory = layoutCategoryRepository.findById(seatBookingObject.getLayoutCategoryId());
+            layoutCategory.ifPresent(layoutCategoryDetails -> {
+                layoutCategoryDetails.setTotalSeatsBooked(layoutCategoryDetails.getTotalSeatsBooked() + 1);
+                layoutCategoryRepository.save(layoutCategoryDetails);
+            });
+            reservedSeatsRepository
+                    .updateBookingStatus(BOOKED, seatBookingObject.getSelectedSeatNumber(), seatBookingObject.getLayoutCategoryId(), screenId, CANCELLED);
+        }
+        return TICKET_BOOKED_SUCCESSFULLY;
+
     }
 }

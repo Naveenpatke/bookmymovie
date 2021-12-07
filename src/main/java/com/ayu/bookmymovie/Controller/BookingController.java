@@ -1,8 +1,11 @@
 package com.ayu.bookmymovie.Controller;
 
+import com.ayu.bookmymovie.DAO.SeatBooking;
 import com.ayu.bookmymovie.Service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/booking")
@@ -16,7 +19,13 @@ public class BookingController {
         return bookingService.bookMovieTicket(screenId,layoutCategoryId, selectedSeatNumber);
     }
 
-    @PutMapping("/cancel-ticket")
+    @PostMapping("/reserve-multiple-seats")
+    public String bookMultipleMovieTicket(@RequestParam Long screenId, @RequestBody List<SeatBooking> seatBookingList) throws InterruptedException {
+        return bookingService.bookMultipleMovieTicket(screenId, seatBookingList);
+    }
+
+
+        @PutMapping("/cancel-ticket")
     public String cancelMovieTicket(@RequestParam String transactionId){
         return bookingService.cancelMovieTicket(transactionId);
     }
