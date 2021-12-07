@@ -2,9 +2,6 @@ package com.ayu.bookmymovie.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.ParamDef;
 
 import javax.persistence.*;
 import java.util.List;

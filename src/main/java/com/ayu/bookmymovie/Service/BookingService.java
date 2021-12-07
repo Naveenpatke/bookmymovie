@@ -1,9 +1,7 @@
 package com.ayu.bookmymovie.Service;
 
 import com.ayu.bookmymovie.DAO.SeatBooking;
-import com.ayu.bookmymovie.Model.LayoutCategory;
 import com.ayu.bookmymovie.Model.ReservedSeats;
-import com.ayu.bookmymovie.Repository.LayoutCategoryRepository;
 import com.ayu.bookmymovie.Repository.ReservedSeatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,25 +18,6 @@ public class BookingService {
 
     @Autowired
     ReservedSeatsRepository reservedSeatsRepository;
-
-    @Autowired
-    LayoutCategoryRepository layoutCategoryRepository;
-
-    public String bookMovieTicket(Long screenId, Long layoutCategoryId, Integer selectedSeatNumber) throws InterruptedException {
-        Optional<ReservedSeats> reservedSeatsDetailsFromDB =
-                reservedSeatsRepository.findBookingDetailsByScreenIdAndLayoutCategoryAndReservedSeatNumber(screenId, layoutCategoryId, selectedSeatNumber, CANCELLED);
-
-        if (reservedSeatsDetailsFromDB.isPresent()) {
-            return SEAT_ALREADY_BOOKED;
-        } else {
-            reservedSeatsRepository
-                    .reserveSeatForGivenScreenIdAndLayoutCategoryIdAndSeatNumber(UUID.randomUUID().toString(), PENDING, selectedSeatNumber, layoutCategoryId, screenId);
-            TimeUnit.SECONDS.sleep(20);
-            reservedSeatsRepository
-                    .updateBookingStatus(BOOKED, selectedSeatNumber, layoutCategoryId, screenId, CANCELLED);
-            return TICKET_BOOKED_SUCCESSFULLY;
-        }
-    }
 
     public String cancelMovieTicket(String transactionId, List<SeatBooking> seatBookingList) {
 
