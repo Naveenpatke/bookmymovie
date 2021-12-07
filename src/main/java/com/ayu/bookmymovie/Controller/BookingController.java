@@ -26,8 +26,8 @@ public class BookingController {
 
 
         @PutMapping("/cancel-ticket")
-    public String cancelMovieTicket(@RequestParam String transactionId){
-        return bookingService.cancelMovieTicket(transactionId);
+    public String cancelMovieTicket(@RequestParam String transactionId, @RequestBody List<SeatBooking> seatBookingList){
+        return bookingService.cancelMovieTicket(transactionId, seatBookingList);
     }
 
 }

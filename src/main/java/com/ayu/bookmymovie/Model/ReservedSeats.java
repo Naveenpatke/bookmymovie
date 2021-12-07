@@ -13,6 +13,10 @@ import javax.persistence.*;
 @Table(name = "reserved_seats")
 public class ReservedSeats {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     private String transactionId;
 
     private String bookingStatus;

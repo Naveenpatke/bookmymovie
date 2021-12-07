@@ -31,11 +31,6 @@ public class BookingService {
         if (reservedSeatsDetailsFromDB.isPresent()) {
             return SEAT_ALREADY_BOOKED;
         } else {
-            Optional<LayoutCategory> layoutCategory = layoutCategoryRepository.findById(layoutCategoryId);
-            layoutCategory.ifPresent(layoutCategoryDetails -> {
-                layoutCategoryDetails.setTotalSeatsBooked(layoutCategoryDetails.getTotalSeatsBooked() + 1);
-                layoutCategoryRepository.save(layoutCategoryDetails);
-            });
             reservedSeatsRepository
                     .reserveSeatForGivenScreenIdAndLayoutCategoryIdAndSeatNumber(UUID.randomUUID().toString(), PENDING, selectedSeatNumber, layoutCategoryId, screenId);
             TimeUnit.SECONDS.sleep(20);
@@ -45,44 +40,38 @@ public class BookingService {
         }
     }
 
-    public String cancelMovieTicket(String transactionId) {
-        Optional<ReservedSeats> reservedSeatsDetailsFromDB =
-                reservedSeatsRepository.findByTransactionId(transactionId);
+    public String cancelMovieTicket(String transactionId, List<SeatBooking> seatBookingList) {
 
-        if (reservedSeatsDetailsFromDB.isPresent()) {
-            Integer seatNumberToBeCancelled = reservedSeatsDetailsFromDB.get().getReservedSeatNumber();
-            Long layoutCategoryId = reservedSeatsDetailsFromDB.get().getLayoutCategory().getId();
-            Long screenId = reservedSeatsDetailsFromDB.get().getScreen().getId();
-            Optional<LayoutCategory> layoutCategory = layoutCategoryRepository.findById(layoutCategoryId);
-            layoutCategory.ifPresent(layoutCategoryDetails -> {
-                layoutCategoryDetails.setTotalSeatsBooked(layoutCategoryDetails.getTotalSeatsBooked() - 1);
-                layoutCategoryRepository.save(layoutCategoryDetails);
-            });
+        for (SeatBooking seatBookingObject : seatBookingList) {
+            Integer seatNumberToBeCancelled = seatBookingObject.getSelectedSeatNumber();
+            Long layoutCategoryId = seatBookingObject.getLayoutCategoryId();
             reservedSeatsRepository
-                    .updateBookingStatus(CANCELLED, seatNumberToBeCancelled, layoutCategoryId, screenId, CANCELLED);
-            return TICKET_CANCELLED_SUCCESSFULLY;
-        } else {
-            return NO_BOOKING_FOUND_FOR_THE_GIVEN_DETAILS;
+                    .cancelTicketBasedOnTransactionIdAndLayoutCategoryIdAndReservedSeatNumber(CANCELLED, seatNumberToBeCancelled, layoutCategoryId, transactionId, CANCELLED);
         }
+
+        return seatBookingList.size() > 1 ? TICKETS_CANCELLED_SUCCESSFULLY : TICKET_CANCELLED_SUCCESSFULLY;
     }
 
     public String bookMultipleMovieTicket(Long screenId, List<SeatBooking> seatBookingList) throws InterruptedException {
-
+        UUID uuid = UUID.randomUUID();
         for (SeatBooking seatBookingObject : seatBookingList) {
+            Integer selectedSeatNumber = seatBookingObject.getSelectedSeatNumber();
+            Long layoutCategoryId = seatBookingObject.getLayoutCategoryId();
+            Optional<ReservedSeats> reservedSeatsDetailsFromDB =
+                    reservedSeatsRepository.findBookingDetailsByScreenIdAndLayoutCategoryAndReservedSeatNumber(screenId, layoutCategoryId, selectedSeatNumber, CANCELLED);
+            if (reservedSeatsDetailsFromDB.isPresent()) {
+                reservedSeatsRepository
+                        .cancelTicketBasedOnTransactionId(CANCELLED, uuid.toString());
+                return SEAT_ALREADY_BOOKED;
+            }
             reservedSeatsRepository
-                    .reserveSeatForGivenScreenIdAndLayoutCategoryIdAndSeatNumber(UUID.randomUUID().toString(), PENDING, seatBookingObject.getSelectedSeatNumber(), seatBookingObject.getLayoutCategoryId(), screenId);
+                    .reserveSeatForGivenScreenIdAndLayoutCategoryIdAndSeatNumber(uuid.toString(), PENDING, selectedSeatNumber, layoutCategoryId, screenId);
         }
         TimeUnit.SECONDS.sleep(20);
         for (SeatBooking seatBookingObject : seatBookingList) {
-            Optional<LayoutCategory> layoutCategory = layoutCategoryRepository.findById(seatBookingObject.getLayoutCategoryId());
-            layoutCategory.ifPresent(layoutCategoryDetails -> {
-                layoutCategoryDetails.setTotalSeatsBooked(layoutCategoryDetails.getTotalSeatsBooked() + 1);
-                layoutCategoryRepository.save(layoutCategoryDetails);
-            });
             reservedSeatsRepository
                     .updateBookingStatus(BOOKED, seatBookingObject.getSelectedSeatNumber(), seatBookingObject.getLayoutCategoryId(), screenId, CANCELLED);
         }
-        return TICKET_BOOKED_SUCCESSFULLY;
-
+        return seatBookingList.size() > 1 ? TICKETS_BOOKED_SUCCESSFULLY : TICKET_BOOKED_SUCCESSFULLY;
     }
 }

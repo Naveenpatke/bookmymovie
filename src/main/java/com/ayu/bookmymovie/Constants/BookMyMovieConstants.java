@@ -5,9 +5,11 @@ public final class BookMyMovieConstants {
     public final static String PENDING = "Pending";
     public final static String BOOKED = "Booked";
     public final static String CANCELLED = "Cancelled";
-    public final static String SEAT_ALREADY_BOOKED = "Seat already booked";
+    public final static String SEAT_ALREADY_BOOKED = "One of the seat u have selected is already booked, so transaction got failed";
     public final static String TICKET_BOOKED_SUCCESSFULLY = "Ticket booked successfully";
+    public final static String TICKETS_BOOKED_SUCCESSFULLY = "Tickets booked successfully";
     public final static String TICKET_CANCELLED_SUCCESSFULLY = "Ticket Cancelled successfully";
+    public final static String TICKETS_CANCELLED_SUCCESSFULLY = "Tickets Cancelled successfully";
     public final static String NO_BOOKING_FOUND_FOR_THE_GIVEN_DETAILS = "No booking found for given details";
 
     public final static String  CINEMA_DELETED_SUCCESSFULLY = "Cinema deleted successfully";

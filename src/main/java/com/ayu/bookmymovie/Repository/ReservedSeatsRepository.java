@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 public interface ReservedSeatsRepository extends JpaRepository<ReservedSeats, Long> {
@@ -25,5 +26,16 @@ public interface ReservedSeatsRepository extends JpaRepository<ReservedSeats, Lo
     @Transactional
     void updateBookingStatus(String bookingStatus, Integer reservedSeatNumber, Long layoutCategoryId, Long screenId, String cancelledBookingStatus);
 
-    Optional<ReservedSeats> findByTransactionId(String transactionId);
+
+    @Modifying
+    @Query(value = "update reserved_seats r set r.BOOKING_STATUS = ?1 where r.RESERVED_SEAT_NUMBER = ?2 AND r.LAYOUT_CATEGORY_ID = ?3 AND  r.TRANSACTION_ID = ?4 AND r.BOOKING_STATUS != ?5", nativeQuery = true)
+    @Transactional
+    void cancelTicketBasedOnTransactionIdAndLayoutCategoryIdAndReservedSeatNumber(String bookingStatus, Integer reservedSeatNumber, Long layoutCategoryId, String transactionId, String cancelledBookingStatus);
+
+    @Modifying
+    @Query(value = "update reserved_seats r set r.BOOKING_STATUS = ?1 where r.TRANSACTION_ID = ?2 ", nativeQuery = true)
+    @Transactional
+    void cancelTicketBasedOnTransactionId(String bookingStatus, String transactionId);
+
+    List<ReservedSeats> findByTransactionId(String transactionId);
 }

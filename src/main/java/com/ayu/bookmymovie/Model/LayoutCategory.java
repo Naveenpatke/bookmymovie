@@ -2,9 +2,16 @@ package com.ayu.bookmymovie.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import static com.ayu.bookmymovie.Constants.BookMyMovieConstants.CANCELLED;
 
 @Getter
 @Setter
@@ -24,8 +31,6 @@ public class LayoutCategory {
 
     private Integer maxSeats;
 
-    private Integer totalSeatsBooked;
-
     @ManyToOne
     @JoinColumn(name = "screen_id")
     @JsonIgnore
@@ -33,4 +38,10 @@ public class LayoutCategory {
 
     @OneToMany(mappedBy = "layoutCategory")
     private List<ReservedSeats> reservedSeats;
+
+    public List<ReservedSeats> getReservedSeats() {
+        return reservedSeats.stream()
+                .filter(reservedSeat -> !Objects.equals(reservedSeat.getBookingStatus(), CANCELLED))
+                .collect(Collectors.toList());
+    }
 }
