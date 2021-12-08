@@ -1,0 +1,605 @@
+{
+	"info": {
+		"_postman_id": "d58ce433-be2d-4130-8ae9-ff671f94e7a0",
+		"name": "ayu",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "movie",
+			"item": [
+				{
+					"name": "http://localhost:8080/movie/add-movie",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movieName\": \"Avengers\",\r\n    \"movieDuration\": \"150\",\r\n    \"movieDetails\": \"Good Action movie\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/movie/add-movie",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movie",
+								"add-movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/movie/get-movie-details?movieName=nge",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movie/get-movie-details?movieName=nge",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movie",
+								"get-movie-details"
+							],
+							"query": [
+								{
+									"key": "movieName",
+									"value": "nge"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/movie/update-movie-details",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movieId\": 1,\r\n    \"movieName\": \"Avengers\",\r\n    \"movieDuration\": \"140\",\r\n    \"movieDetails\": \"Good Action movie adn adventures\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/movie/update-movie-details",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movie",
+								"update-movie-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/movie/delete-movie?movieId=1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movie/delete-movie?movieId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movie",
+								"delete-movie"
+							],
+							"query": [
+								{
+									"key": "movieId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/movie/add-movie-to-screen?screenId=1&movieID=1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movie/add-movie-to-screen?screenId=1&movieID=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movie",
+								"add-movie-to-screen"
+							],
+							"query": [
+								{
+									"key": "screenId",
+									"value": "1"
+								},
+								{
+									"key": "movieID",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "layoutCategory",
+			"item": [
+				{
+					"name": "http://localhost:8080/layout-category/delete-layout-category?layoutCategoryId=1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/layout-category/delete-layout-category?layoutCategoryId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"layout-category",
+								"delete-layout-category"
+							],
+							"query": [
+								{
+									"key": "layoutCategoryId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/layout-category/add-layout-category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\":\"sliver\",\r\n    \"price\":\"100\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/layout-category/add-layout-category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"layout-category",
+								"add-layout-category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/layout-category/get-layout-category-details?LayoutCategoryId=1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/layout-category/get-layout-category-details?LayoutCategoryId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"layout-category",
+								"get-layout-category-details"
+							],
+							"query": [
+								{
+									"key": "LayoutCategoryId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/layout-category/update-layout-category-details",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"id\":\"1\",\r\n    \"categoryName\":\"gold\",\r\n    \"price\":\"1000\",\r\n    \"maxSeats\": 30,\r\n    \"totalSeatsBooked\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/layout-category/update-layout-category-details",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"layout-category",
+								"update-layout-category-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/screen/add-screen-category-to-screen?layoutId=1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\":\"sliver\",\r\n    \"price\":\"150\",\r\n    \"maxSeats\": 30,\r\n    \"totalSeatsBooked\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/layout-category/add-layout-category-to-screen?screenId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"layout-category",
+								"add-layout-category-to-screen"
+							],
+							"query": [
+								{
+									"key": "screenId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "screen",
+			"item": [
+				{
+					"name": "http://localhost:8080/screen/add-screen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"screenName\": \"screen1\",\r\n    \"timings\":\"150\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/screen/add-screen",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"screen",
+								"add-screen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/screen/get-screen-details?screenId=1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/screen/get-screen-details?screenId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"screen",
+								"get-screen-details"
+							],
+							"query": [
+								{
+									"key": "screenId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/screen/add-screen-to-cinema?cinemaId=1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"screenName\": \"screen1\",\r\n    \"timings\":\"150\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/screen/add-screen-to-cinema?cinemaId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"screen",
+								"add-screen-to-cinema"
+							],
+							"query": [
+								{
+									"key": "cinemaId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cinema",
+			"item": [
+				{
+					"name": "http://localhost:8080/cinema/add-cinema",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cinema_name\": \"PVR\",\r\n    \"address\": \"HSR, Bangalore\",\r\n    \"rating\":\"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cinema/add-cinema",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cinema",
+								"add-cinema"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/cinema/get-cinema-details?cinemaId=1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/cinema/get-cinema-details?cinemaId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cinema",
+								"get-cinema-details"
+							],
+							"query": [
+								{
+									"key": "cinemaId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/cinema/update-cinema-details",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cinema_id\": 1,\r\n    \"cinemaName\": \"PVR\",\r\n    \"address\": \"HSR Layout, Bangalore\",\r\n    \"rating\":\"5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cinema/update-cinema-details",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cinema",
+								"update-cinema-details"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "booking",
+			"item": [
+				{
+					"name": "http://localhost:8080/booking/reserve-ticket?screenId=1&layoutCategoryId=2&selectedSeatNumber=1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"selectedSeatNumber\": 13,\r\n        \"layoutCategoryId\": 1\r\n    },\r\n    {\r\n        \"selectedSeatNumber\": 21,\r\n        \"layoutCategoryId\":2\r\n    },\r\n    {\r\n        \"selectedSeatNumber\": 1,\r\n        \"layoutCategoryId\":1\r\n    },\r\n    {\r\n        \"selectedSeatNumber\": 25,\r\n        \"layoutCategoryId\":1\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/booking/reserve-multiple-seats?screenId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking",
+								"reserve-multiple-seats"
+							],
+							"query": [
+								{
+									"key": "screenId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/booking/cancel-ticket?transactionId=26450038-be7e-4978-a53e-fb6904f2688e",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"selectedSeatNumber\": 1,\r\n        \"layoutCategoryId\": 1\r\n    },\r\n    {\r\n        \"selectedSeatNumber\": 1,\r\n        \"layoutCategoryId\":2\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/booking/cancel-ticket?transactionId=0eb56186-d73e-4be5-a941-a1aadd072576",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking",
+								"cancel-ticket"
+							],
+							"query": [
+								{
+									"key": "transactionId",
+									"value": "0eb56186-d73e-4be5-a941-a1aadd072576"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/booking/reserve-multiple-seats?screenId=1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"selectedSeatNumber\": 11,\r\n        \"layoutCategoryId\": 1\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/booking/reserve-multiple-seats?screenId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"booking",
+								"reserve-multiple-seats"
+							],
+							"query": [
+								{
+									"key": "screenId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
